@@ -16,3 +16,6 @@ pyvenv.cfg
 /.vscode/tags
 
 /comments_site/secrets.py
+
+.DS_Store
+venv/
