@@ -13,15 +13,24 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-3">{{ description }}: {{ comment_count|intcomma }}</h1>
-    <p class="lead">Here's what that looks like:</p>
+	<div class="info">
+		{% if details %}
+		<p class="details lead">Notes: {{details}}</p>
+		{% endif %}
+		{% if url %}
+		<p class="source lead">We think this comment listing comes from: {{ url }}</p>
+		{% else %}
+		<p class="source lead">Do you know where these comments come from? <a href="https://goo.gl/forms/K2bwpZMhHWC9yfD92">Let us know!</a></p>
+		{% endif %}	
+	</div>
   </div>
 </div>
 
 
 <div class="container">
-    <div class="row">
+    <div class="row" style="margin-bottom: 1rem">
         {% for name, stat_dict in stats.items %}
-        <div class="col-md-3">
+        <div class="col-md-3" style="margin-bottom: 1rem">
             <h5>{{ name }}</h5>
             <ul class="list-group">
                 {% for key, count in stat_dict.items %}
@@ -34,11 +43,12 @@
         </div>
         {% endfor %}
     </div>
-
+	
+	<h4>Sample of 50 Comments</h4>
     <table class="table table-sm">
         <thead class="https://www.fcc.gov/ecfs/filing/">
             <tr>
-                <th>ID</th>
+                <th>FCC ID</th>
                 <th>Name</th>
                 <th>Comment</th>
             </tr>
