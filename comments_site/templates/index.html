@@ -1,19 +1,18 @@
 {% extends "base.html" %}{% load humanize %}
 
 {% block body %}
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid bg-success text-white">
   <div class="container">
     <h1 class="display-3">Total FCC Comments: {{ total_comments|intcomma }}</h1>
-    <p class="lead">Here's what that looks like:</p>
+	<p class="lead">Last crawl: November 24th, 2017. Find out more about the comments below.</p>
   </div>
 </div>
 <div class="container">
 
-    <div class="row">
+	<div class="row">
         <div class='col-md-6'>
-            <h4>Overall Sentiment</h4>
-            <p>I try to determine this based on the comment source, and a number
-                of very naiive regexes (I know, I know, now I have two problems). If you'd like to help with this, <a href="https://github.com/csinchok/fcc-comment-analysis/issues/2">let me know.</a></p>
+            <h4>Estimated Sentiment</h4>
+			<p>Sentiment ("pro" or "anti") is estimated by pattern matching phrases and manual review of comments.</p>
             <ul class="list-group">
                 <li class="list-group-item justify-content-between">
                     <a href="/browse?titleii=pro">Pro Title II</a>
@@ -29,12 +28,29 @@
                 </li>
             </ul>
         </div>
+		<div class="col-md-6">
+			<h4>More Information</h4>
+			<p>Interested in net neutrality, the filing system, or fake comments? Start here and learn more - or build your own tools to analyze FCC comments.</p>
+			<ul class="list-group">
+                <li class="list-group-item justify-content-between">
+					Explainer: <a href="https://hbr.org/2017/03/the-tangled-web-of-net-neutrality-and-regulation">What is net neutrality?</a>
+				</li>
+                <li class="list-group-item justify-content-between">
+					Explainer: <a href="https://www.washingtonpost.com/news/the-switch/wp/2017/11/24/fcc-net-neutrality-process-corrupted-by-fake-comments-and-vanishing-consumer-complaints-officials-say/?utm_term=.b289ba49b235"><em>Washington Post</em> Summary of the fake comments debate</a>
+				</li>	
+                <li class="list-group-item justify-content-between">
+					Developers: <a href="https://www.fcc.gov/ecfs/public-api-docs.html"> Get an API key for the FCC's filing system</a>
+				</li>	
+			</ul>	
+		</div>	
+	</div>
 
+    <div class="row" style="margin-top: 2rem">
         <div class="col-md-6">
-            <h4>Top Message Formats</h4>
-            <p>These are the most common repeated messages, labeled by what I have guessed to be the source</p>
+            <h4>Top 25 Comment Sources</h4>
+			<p>Aggregated counts of common comments, with extra source information if known.</p>
             <ul class="list-group">
-                {% for source in sources %}
+                {% for source in sources|slice:"0:12" %}
                 <li class="list-group-item justify-content-between">
                     <a href="/browse?source={{source.key}}">{{ source.name|default:source.key }}</a>
                     <span class="badge badge-default badge-pill">{{ source.count|intcomma }}</span>
@@ -42,7 +58,19 @@
                 {% endfor %}
             </ul>
         </div>
-    </div>
+        <div class="col-md-6" style="margin-top: 4rem">
+			<h4><em>(continued)</em></h4>
+            <ul class="list-group">
+                {% for source in sources|slice:"12:" %}
+                <li class="list-group-item justify-content-between">
+                    <a href="/browse?source={{source.key}}">{{ source.name|default:source.key }}</a>
+                    <span class="badge badge-default badge-pill">{{ source.count|intcomma }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+	</div>
+
 
 </div>
 {% endblock %}
