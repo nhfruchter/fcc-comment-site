@@ -11,11 +11,9 @@ pyvenv.cfg
 /.ipynb_checkpoints
 /db.sqlite3
 /node_modules
-/public/static/*
-
 /.vscode/tags
 
 /comments_site/secrets.py
-
+/public/static/*
 .DS_Store
 venv/

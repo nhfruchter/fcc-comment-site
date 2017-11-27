@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-3">Let's take a closer look.</h1>
+	<p class="lead">Net neutrality is a hotly debated topic. This site isn't here to pass judgment on that. <br />It's here to help you understand the unprecedented public engagement with the FCC's comment process.</p>
+	<p class="lead">Find out more: <a href="#sources">comment sources</a> &bull; <a href="#method">methodology</a> &bull; <a href="#data">get the data</a></p>
+  </div>
+</div>
+
+<div class="container">
+	<h3>What is this site?</h3>
+	<p>The FCC's docket 17-108 <em>Restoring Internet Freedom</em> has solicited over 20 million comments regarding the reclassification of internet service providers under Title II of Telecommunications Act. Proponents of reclassification claim that FCC action will remove regulatory burden and increase innovation. Opponents claim that FCC action will gut net neutrality rules and stifle the Internet's open character. The technical and political weight of the <em>RIF</em> docket has led to unprecedented public engagement with the FCC's Electronic Comment Filing System through form letters, petitions, campaigns, and corporate lobbying activity.</p>
+	
+	<p>The ECFS allows viewing of individual comments, but does not allow users to see trends or aggregations necessary to make sense of millions of comments. <strong>This site aims to provide that big-picture snapshot of the comments by displaying trends and attempting to categorize comments by source.</strong></p>
+
+	<hr />
+	<h2 id="sources">Comment sources</h2>
+	<h4>What's this "fake comments" thing?</h4>
+	<p>There have been claims made by parties on both sides of the net neutrality debate that comments have been filed using fake or misleading names and addresses. The <a href="https://www.washingtonpost.com/news/the-switch/wp/2017/11/22/official-says-hes-been-stymied-by-the-fcc-in-investigation-of-fake-net-neutrality-foes/">Washington Post</a> provides an overview of the New York Attorney General's attempt to investigate this claim. This site doesn't identify comments as fake, but does attempt to identify comments filed through bulk or automated methods.</p>
+	
+	<h4>What is an API filed/"bot"/"Off-site" comment?</h4>
+	<p>Comments can be filed automatically through the FCC's <a href="https://www.fcc.gov/ecfs/help/public_api">ECFS API</a> or through uploading a spreadsheet. These tools can be used legitimately for creating petition-style websites. However, they can also be used to bulk-file misleading or fake comments&mdash;or inflate the numbers of an existing comment form.</p>
+	
+	<h4>What is an "on-site" comment?</h4>
+	<p>These are comments filed using the FCC's website.</p>
+
+	<hr />
+	<h2 id="method">Methodology</h2>
+
+	<h4>Where do the various metrics come from?</h4>
+	<ul>
+		<li>Estimated Sentiment: ideological bent of known sources + regular expression pattern matching against phrases in comment text.</li>
+		<li>Comment Sources: <a href="https://github.com/csinchok/fcc-comment-analysis/blob/master/fcc_analysis/analyzers.py">existing work by Chris Sinchok</a> + stated locations (in some cases) + Google</li>
+		<li>On-site/Off-site: ECFS metadata</li>
+		<li>Address: count of ECFS metadata fields for address</li>
+		<li>Throwaway email: Matching emails against a <a href="https://github.com/martenson/disposable-email-domains">blacklist</a>. Note that use of a disposable email isn't necessarily a sign that a comment is fake. A real person might want to preserve their privacy in the public record.</li>
+	</ul>	
+
+	<hr />
+	<h2 id="data">Comment data</h2>
+	<p>You can get raw ECFS docket data from the FCC here:</p>
+	<ul>
+		<li>https://data.fcc.gov/comments/17-108/ECFS_17-108_1.zip</li>
+		<li>https://data.fcc.gov/comments/17-108/ECFS_17-108_2.zip</li>
+		<li>https://data.fcc.gov/comments/17-108/ECFS_17-108_3.zip</li>
+	</ul>	
+</div>
+{% endblock %}
