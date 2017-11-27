@@ -20,12 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'a2$53b!b_411dv1ebq99n4vu*wrm^g$x8z_5%_mdj1k1cib)0&'
+SECRET_KEY = "#TvsC]tp*];Zj!Ckp@N}c8k\\mQ/=5X\\Jl!P<-'X6w/(bMh52K]"
+# SECRET_KEY = 'a2$53b!b_411dv1ebq99n4vu*wrm^g$x8z_5%_mdj1k1cib)0&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["128.52.161.133", "127.0.0.1"]
 
 
 # Application definition
@@ -122,8 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'node_modules')
+    os.path.join(BASE_DIR, 'node_modules'),
+    os.path.join(BASE_DIR, 'public', 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'public', 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'public', 'static')
 
-from .secrets import AWS  # noqa
