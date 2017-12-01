@@ -54,11 +54,30 @@ def index(request):
             'url': SOURCE_MAP.get(source.key, {}).get('url')
         })
 
-        print(source.key, source.doc_count)
+        # print(source.key, source.doc_count)
     # context['sources'] = s.aggs['sources']
 
     return render(request, 'index.html', context)
 
+def sources(request):
+    s = Search(using=es)
+    
+    a = A('terms', field='analysis.source', size=50)
+    s.aggs.bucket('sources', a)
+    response = s.execute()
+    
+    context = { 'sources': [] }
+    
+    for source in response.aggregations.sources.buckets:
+        context['sources'].append({
+            'key': source.key,
+            'count': source.doc_count,
+            'name': SOURCE_MAP.get(source.key, {}).get('name'),
+            'url': SOURCE_MAP.get(source.key, {}).get('url')
+        })
+    
+    return render(request, 'sources.html', context)
+    
 
 def browse(request):
 

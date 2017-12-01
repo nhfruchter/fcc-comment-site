@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% load humanize %}
+
+{% block body %}
+<div class="container">
+    <div class="row" style="margin-top: 2rem">
+        <div class="col-md-12">
+            <h4>Identified Comment Sources</h4>
+			<p>Aggregated counts of common comments, with extra source information if known.</p>
+            <ul class="list-group">
+                {% for source in sources %}
+                <li class="list-group-item justify-content-between">
+                    <a href="/browse?source={{source.key}}">{{ source.name|default:source.key }}</a>
+                    <span class="badge badge-default badge-pill">{{ source.count|intcomma }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+	</div>
+</div>
+{% endblock %}

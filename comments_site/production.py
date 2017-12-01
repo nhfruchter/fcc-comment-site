@@ -1,4 +1,4 @@
 from .settings import *  # noqa
 
 DEBUG = False
-ALLOWED_HOSTS = ['netneutrality.computer']
+ALLOWED_HOSTS = ['netneutralitycomments.org', 'netneutrality.cloud']
