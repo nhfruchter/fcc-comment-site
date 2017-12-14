@@ -5,8 +5,8 @@ from .sources import SOURCE_MAP
 import time
 from datetime import datetime
 
-from elasticsearch import Elasticsearch, RequestsHttpConnection
 from requests_aws4auth import AWS4Auth
+from elasticsearch import Elasticsearch, RequestsHttpConnection
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.query import Q, FunctionScore, SF
 from elasticsearch_dsl.aggs import A, Filters
@@ -24,7 +24,7 @@ es = Elasticsearch(
 
 def index(request):
 
-    s = Search(using=es)
+    s = Search(using=es, index="fcc-comments")
 
     total = s.count()
     pro_titleii = s.query('match', **{'analysis.titleii': True}).count()
@@ -34,12 +34,12 @@ def index(request):
     context = {
         'total_comments': s.count(),
         'title_ii': {
-            'pro': pro_titleii / total * 100,
-            'anti': anti_titleii / total * 100,
-            'unknown': unknown_titleii / total * 100
+            'pro': float(pro_titleii) / total * 100,
+            'anti': float(anti_titleii) / total * 100,
+            'unknown': float(unknown_titleii) / total * 100
         }
     }
-    a = A('terms', field='analysis.source', size=25)
+    a = A('terms', field='analysis.source.keyword', size=25)
     s.aggs.bucket('sources', a)
     response = s.execute()
     context['sources'] = []
@@ -60,9 +60,9 @@ def index(request):
     return render(request, 'index.html', context)
 
 def sources(request):
-    s = Search(using=es)
+    s = Search(using=es, index='fcc-comments')
     
-    a = A('terms', field='analysis.source', size=50)
+    a = A('terms', field='analysis.source.keyword', size=50)
     s.aggs.bucket('sources', a)
     response = s.execute()
     
@@ -81,7 +81,7 @@ def sources(request):
 
 def browse(request):
 
-    s = Search(using=es)
+    s = Search(using=es, index="fcc-comments")
     description = None
 
     s.query = FunctionScore(
@@ -90,7 +90,7 @@ def browse(request):
 
     if 'source' in request.GET:
         source = request.GET['source']
-        s = s.filter('terms', **{'analysis.source': [source]})
+        s = s.filter('terms', **{'analysis.source.keyword': [source]})
         description = SOURCE_MAP.get(source, {}).get('name') or source
         details = SOURCE_MAP.get(source, {}).get('details') or ""
         url = SOURCE_MAP.get(source, {}).get('url') or ""
@@ -106,12 +106,13 @@ def browse(request):
         elif title_ii == 'unknown':
             description = 'Uncategorized'
             s = s.exclude('exists', field='analysis.titleii')
+        details, url = "", None
     
     s.aggs.bucket("date", A('date_histogram', field='date_submission', interval='month'))
     s.aggs.bucket('address', A('terms', field='analysis.fulladdress'))
     s.aggs.bucket('email_domain', A('terms', field='analysis.throwawayemail'))
     s.aggs.bucket('site', A('terms', field='analysis.onsite'))
-    s.aggs.bucket('ingestion', A('terms', field='analysis.ingestion_method'))
+    s.aggs.bucket('ingestion', A('terms', field='analysis.ingestion_method.keyword'))
     s.aggs.bucket('email_confirmation', A('filters', filters={
         'true': {'term': {'emailConfirmation': 'true'}},
         'false': {'term': {'emailConfirmation': 'false'}}

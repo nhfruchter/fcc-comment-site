@@ -1,0 +1,72 @@
+{
+  "query": {
+    "bool": {
+      "minimum_should_match": 1,
+      "must_not": [
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.telecommunications_act"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.commonsense"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.unprecedented"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.recursive"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.titleii_takeover"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.rammed"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.telephone_monopoly"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.thenewsearchengine"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.internetuser"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.maga"
+          }
+        },
+        {
+          "match_phrase": {
+            "analysis.source.keyword": "bot.dissapear"
+          }
+        },
+		{ "match_phrase": { "analysis.source.keyword":  "bot.corrupt_result" } },
+		{ "match_phrase": { "analysis.source.keyword":  "bot.best_cop" } },
+		{ "match_phrase": { "analysis.source.keyword":  "bot.free_market_internet" } },
+		{ "match_phrase": { "analysis.source.keyword":  "bot.economics_free_zone" } },
+		{ "match_phrase": { "analysis.source.keyword":  "bot.outraged" } },
+		{ "match_phrase": { "analysis.source.keyword":  "bot.mercy" } },
+		{ "match_phrase": { "analysis.source.keyword":  "bot.save_the_internet" } },
+		{ "match_phrase": { "analysis.source.keyword":  "bot.illogically_named" } }		
+      ]
+    }
+  }
+}
