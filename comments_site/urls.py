@@ -16,6 +16,9 @@ urlpatterns = [
     url(r'^credits', 
         TemplateView.as_view(template_name='credits.html'),
         name='credits'),
+    url(r'^visualization', 
+        TemplateView.as_view(template_name='visualization.html'),
+        name='visualization'),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
