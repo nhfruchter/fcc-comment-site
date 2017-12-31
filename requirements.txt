@@ -1,4 +1,4 @@
-Django==1.11.1
+Django
 elasticsearch-dsl==5.2.0
 flake8==3.3.0
 pytz==2017.2

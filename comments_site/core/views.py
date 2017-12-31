@@ -79,7 +79,7 @@ def sources(request):
     return render(request, 'sources.html', context)
     
 
-def browse(request):
+def browse(request, sentiment=None, group=None):
 
     s = Search(using=es, index="fcc-comments")
     description = None
@@ -88,15 +88,15 @@ def browse(request):
         query=s.query, functions=[SF('random_score', seed=int(time.time()))]
     )
 
-    if 'source' in request.GET:
-        source = request.GET['source']
+    if group:
+        source = group
         s = s.filter('terms', **{'analysis.source.keyword': [source]})
         description = SOURCE_MAP.get(source, {}).get('name') or source
         details = SOURCE_MAP.get(source, {}).get('details') or ""
         url = SOURCE_MAP.get(source, {}).get('url') or ""
 
-    elif 'titleii' in request.GET:
-        title_ii = request.GET['titleii']
+    elif sentiment:
+        title_ii = sentiment
         if title_ii == 'pro':
             s = s.filter('terms', **{'analysis.titleii': [True]})
             description = "Pro Title II"

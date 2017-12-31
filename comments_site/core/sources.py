@@ -1,5 +1,9 @@
 
 SOURCE_MAP = {
+    'unknown': {
+        'name': 'Unknown Source',
+        'details': "These comments have an unknown source and couldn't be grouped. This includes unique comments and form/bot comments that don't have grouping criteria yet."
+    },
     'bot.unprecedented': {
         'name': '"Unprecedented" bot',
         'details': 'The original bot that gained fame over the summer.'
@@ -53,6 +57,17 @@ SOURCE_MAP = {
         'name': "Reddit /r/technology",
         'details': "This early form campaign started on the technology subreddit."
     },
+    'form.att': {
+        'name': 'AT&T Campaign'
+    },
+    'form.etsy': {
+        'name': 'Etsy Campaign',
+        'details': 'Small business focused campaign started by Etsy for its vendors.'
+    },
+    'empty': {
+        'name': 'Empty Comments',
+        'details': 'These are comments with no text content.'
+    },
     'form.techcrunch': {
         'name': "Techcrunch Campaign"
     },
@@ -81,7 +96,7 @@ SOURCE_MAP = {
     'form.diminished-investment': {
         'name': '"Diminished Investment" bot',
     },
-    'form.blog.venturebeat': {
+    'blog.venturebeat': {
         'name': 'VentureBeat'
     },
     'form.demandprogress': {

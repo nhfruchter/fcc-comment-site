@@ -9,7 +9,7 @@
             <ul class="list-group">
                 {% for source in sources %}
                 <li class="list-group-item justify-content-between">
-                    <a href="/browse?source={{source.key}}">{{ source.name|default:source.key }}</a>
+                    <a href="/browse/{{source.key}}">{{ source.name|default:source.key }}</a>
                     <span class="badge badge-default badge-pill">{{ source.count|intcomma }}</span>
                 </li>
                 {% endfor %}

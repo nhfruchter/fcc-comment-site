@@ -16,15 +16,15 @@
 			<p>Sentiment ("pro" or "anti") is estimated by pattern matching phrases and manual review of comments.</p>
             <ul class="list-group">
                 <li class="list-group-item justify-content-between">
-                    <a href="/browse?titleii=pro">Pro Title II</a>
+                    <a href="/t2/pro">Pro Title II</a>
                     <span class="badge badge-default badge-pill">{{ title_ii.pro|floatformat:2 }}%</span>
                 </li>
                 <li class="list-group-item justify-content-between">
-                    <a href="/browse?titleii=anti">Anti Title II</a>
+                    <a href="/t2/anti">Anti Title II</a>
                     <span class="badge badge-default badge-pill">{{ title_ii.anti|floatformat:2 }}%</span>
                 </li>
                 <li class="list-group-item justify-content-between">
-                     <a href="/browse?titleii=unknown">Uncategorized</a>
+                     <a href="/t2/unknown">Uncategorized</a>
                     <span class="badge badge-default badge-pill">{{ title_ii.unknown|floatformat:2 }}%</span>
                 </li>
             </ul>
@@ -53,7 +53,7 @@
             <ul class="list-group">
                 {% for source in sources|slice:"0:12" %}
                 <li class="list-group-item justify-content-between">
-                    <a href="/browse?source={{source.key}}">{{ source.name|default:source.key }}</a>
+                    <a href="/browse/{{source.key}}">{{ source.name|default:source.key }}</a>
                     <span class="badge badge-default badge-pill">{{ source.count|intcomma }}</span>
                 </li>
                 {% endfor %}
@@ -64,7 +64,7 @@
             <ul class="list-group">
                 {% for source in sources|slice:"12:" %}
                 <li class="list-group-item justify-content-between">
-                    <a href="/browse?source={{source.key}}">{{ source.name|default:source.key }}</a>
+                    <a href="/browse/{{source.key}}">{{ source.name|default:source.key }}</a>
                     <span class="badge badge-default badge-pill">{{ source.count|intcomma }}</span>
                 </li>
                 {% endfor %}
